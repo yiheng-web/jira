@@ -1,13 +1,15 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      // 关键配置：映射到 src 目录
+      // '~': path.resolve(__dirname, './src'),
+      // 或者用 @ 符号
+      '@': path.resolve(__dirname, './src'),
     },
   },
-});
+})

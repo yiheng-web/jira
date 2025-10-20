@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
+    "baseUrl": "./src",
+    "paths":{
+      "@/*":["./src/*"]
     },
+    "ignoreDeprecations": "6.0",
+    "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2022",
     "useDefineForClassFields": true,
@@ -27,5 +33,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src/**/*",
+    "src/**/*.jsx"  // 明确包含 jsx 文件
+  ]
 }

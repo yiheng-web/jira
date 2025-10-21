@@ -1,4 +1,4 @@
-import { ProjectListScreen } from "@/screens/project-list";
+import { ProjectListScreen } from "#src/screens/project-list/index.jsx";
 import "./App.css";
 
 function App() {

@@ -1,10 +1,8 @@
-import {ProjectListScreen} from "./screens/project-list"
+import { ProjectListScreen } from "@/screens/project-list";
 import "./App.css";
 
 function App() {
-  
-
-  return (  
+  return (
     <>
       <ProjectListScreen />
     </>

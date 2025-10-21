@@ -6,14 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky install",
+    "prepare": "husky",
     "commitlint": "commitlint",
-    "json-server":"json-server __json_server_mock__/db.json --watch --port 4000"
+    "json-server": "json-server __json_server_mock__/db.json --watch --port 4000",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "json-server": "^1.0.0-beta.3",
+    "qs": "^6.14.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
@@ -45,11 +47,14 @@
       "commit-msg": "commitlint --edit $1"
     }
   },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md,ts,tsx}": "prettier --write"
-  },
   "imports": {
     "#src/*": "./src/*"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": "prettier --write"
   }
 }

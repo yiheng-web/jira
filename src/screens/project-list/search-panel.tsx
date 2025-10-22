@@ -1,6 +1,19 @@
-import React from "react";  // ✅ 只改导入
-
-export const SearchPanel = ({param,setParam,users}) => {
+export  interface User {
+    id:string;
+    name:string;
+    email:string;
+    title:string;
+    organization:string;
+}
+interface SearchPanelProps {
+    users:User[],
+    param: {
+        name:string;
+        personId:string;
+    },
+    setParam:(param:SearchPanelProps['param'])=>void
+}
+export const SearchPanel = ({param,setParam,users}:SearchPanelProps) => {
     return (
         <form action="">
              {/* setParam(Object.assign({},param,{name:evt.target.value})) */}

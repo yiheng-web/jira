@@ -1,6 +1,6 @@
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { cleanObject, useMount, useDebounce } from "#src/utils/index.js";
 import * as qs from "qs";
 
@@ -34,7 +34,7 @@ export const ProjectListScreen = () => {
         setUsers(await res.json());
       }
     });
-  }, []); //空数组是希望其只在页面加载的时候执行一次，而不在页面更新的时候执行，相当于 componentDidMount 和 componentDidUpdate 的合并
+  }); //空数组是希望其只在页面加载的时候执行一次，而不在页面更新的时候执行，相当于 componentDidMount 和 componentDidUpdate 的合并
   // 在你的 index.jsx 中，修改这两个 useEffect
   // ✅ 修复：先检查 res.ok，再用 res.json()
   // useEffect(() => {

@@ -1,14 +1,17 @@
-import { use, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 
-export const isFalsy = (value) => (value === 0 ? false : !value);
-export const cleanObject = (obj) => {
+
+export const isFalsy = (value:any) => (value === 0 ? false : !value);
+export const cleanObject = (obj:object) => {
   //Object.assign({}, obj);
   //浅拷贝obj，避免直接修改传入的参数
   const result = { ...obj };
   Object.keys(result).forEach((key) => {
     //检查并删除假值，如 null, undefined, '', false, NaN，使用isFalsy函数排除为0的情况
+   //@ts-ignore
     const value = result[key];
     if (isFalsy(value)) {
+      // @ts-ignore
       delete result[key];
     }
   });
@@ -16,13 +19,13 @@ export const cleanObject = (obj) => {
 };
 
 //定义一个钩子，用于在组件挂载时执行一个回调函数
-export const useMount = (callback) => {
+export const useMount = (callback:Function) => {
   useEffect(() => {
     callback();
   }, []);
 };
 
-export const useDebounce = (value, wait) => {
+export const useDebounce = (value:any, wait?:number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   //每次在value变化时，设置一个计时器，在wait时间后执行setDebouncedValue更新状态
   useEffect(() => {

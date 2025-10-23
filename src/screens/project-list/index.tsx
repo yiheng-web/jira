@@ -19,7 +19,7 @@ export const ProjectListScreen = () => {
 
   // 项目列表
   useEffect(() => {
-    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(
+    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`).then(
       async (res) => {
         if (res.ok) {
           setList(await res.json());

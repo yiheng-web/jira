@@ -1,3 +1,6 @@
+import React from "react";
+
+
 export interface Users{
     id:string;
     name:string;
@@ -14,7 +17,6 @@ interface SearchParams{
     setParams:(params:SearchParams['params'])=>void;
 }
 
-import React from "react";
 
 
 export const SearchPanel = ({params,setParams,users}:SearchParams) => {
@@ -32,10 +34,10 @@ export const SearchPanel = ({params,setParams,users}:SearchParams) => {
                 personId:c.target.value
             }) }>
 
-            <option value=''>负责人</option>
-            {users.map(user=>{
-                return <option key={user.id} value={user.id}>{user.name}</option>
-            })}    
+                <option value=''>负责人</option>
+                {users.map(user=>{
+                    return <option key={user.id} value={user.id}>{user.name}</option>
+                })}    
            </select>
         </form>
     )

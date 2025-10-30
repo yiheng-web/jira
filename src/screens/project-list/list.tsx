@@ -23,12 +23,12 @@ export const List = ({list,users}: ListProps)=>{
                 </tr>
             </thead>
             <tbody>
-                {list.map(project=>{
+                {list.map(project=>(
                     <tr key={project.id}>
                         <td>{project.name}</td>
                         <td>{users.find(user=> Number(user.id) === Number(project.id))}</td>
                     </tr>
-                })}
+                ))}
             </tbody>
         </table>
     )

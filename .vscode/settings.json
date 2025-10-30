@@ -1,0 +1,9 @@
+{
+    
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[jsonc]": {
+  "editor.formatOnSave": false
+}
+
+
+}

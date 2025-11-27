@@ -3,7 +3,7 @@ import { List } from 'screens/project-list/list'
 import React, { useState, useEffect } from 'react'
 import { useMount, cleanObject, useDebounce } from 'utils'
 import { useHttp } from './http'
-import * as qs from "qs"
+// import * as qs from "qs"
 
 export const ProjectListScreen = () => {
     const [params, setParams] = useState({

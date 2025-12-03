@@ -2,19 +2,39 @@ import React from 'react';
 import { ProjectListScreen } from 'screens/project-list';
 import { useAuth } from 'context/auth-context';
 import {Row} from './components/lib';
+import {ReactComponent as SoftwareLogo} from 'assets/software-logo.svg';
 import styled from '@emotion/styled';
+import type { MenuProps } from 'antd';
+import { Dropdown, Space } from 'antd';
+
+
 export const AuthenticatedApp = () => {
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
+    const items: MenuProps['items'] = [
+    {
+        key: 'layout',
+        danger: true,
+        label:(
+            <a onClick={logout}>登出</a>
+        )
+    }
+]
     return (
         <div>
             <Header between={true}>
                 <HeaderLeft gap = {true}>
-                    <h2>Jira</h2>
+                    <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
                     <h2>项目</h2>
                     <h2>用户</h2>
                 </HeaderLeft>
                 <HeaderRight>
-                    <button onClick={logout}>登出</button>
+                    <Dropdown menu={{items}}>
+                         <a onClick={(e) => e.preventDefault()}>
+                            <Space>
+                                Hi, {user?.name}
+                            </Space>
+                        </a>
+                    </Dropdown>
                 </HeaderRight>
             </Header>
             <Main>
@@ -30,6 +50,8 @@ height: 100vh;
 `
 
 const Header = styled(Row)`
+padding: 3.2rem;
+box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
 `
 const HeaderItem = styled.h3`
 margin-right: 3rem;

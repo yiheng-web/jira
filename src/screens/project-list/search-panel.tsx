@@ -1,4 +1,4 @@
-import { Input, Select } from "antd";
+import { Input, Select, Form } from "antd";
 import React from "react";
 
 
@@ -23,24 +23,33 @@ interface SearchParams{
 
 export const SearchPanel = ({params,setParams,users}:SearchParams) => {
     return (
-        <form action="">
-            <Input type="text"  value={params.name} onChange={c=>{
-                setParams({
-                    ...params,
-                    name:c.target.value
-                })
-            }}/>
+        <Form style={{marginBottom:'2rem'}} layout={"inline"}>
+            <Form.Item>
+                <Input 
+                    placeholder="项目名称" 
+                    type="text"  
+                    value={params.name} 
+                    onChange={c=>{
+                    setParams({
+                        ...params,
+                        name:c.target.value
+                    })
+                }}/>
+            </Form.Item>
+            
+            <Form.Item>
+                <Select value={params.personId} onChange={value=>setParams({
+                        ...params,
+                        personId:value
+                    }) }>
 
-            <Select value={params.personId} onChange={value=>setParams({
-                ...params,
-                 personId:value
-            }) }>
-
-                <Select.Option value=''>负责人</Select.Option>
-                {users.map(user=>{
-                    return <Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>
-                })}    
-           </Select>
-        </form>
+                        <Select.Option value=''>负责人</Select.Option>
+                        {users.map(user=>{
+                            return <Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>
+                        })}    
+                </Select>
+            </Form.Item>
+            
+        </Form>
     )
 }

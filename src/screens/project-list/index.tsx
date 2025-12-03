@@ -3,6 +3,8 @@ import { List } from 'screens/project-list/list'
 import React, { useState, useEffect } from 'react'
 import { useMount, cleanObject, useDebounce } from 'utils'
 import { useHttp } from './http'
+import styled from '@emotion/styled'
+
 // import * as qs from "qs"
 
 export const ProjectListScreen = () => {
@@ -21,11 +23,16 @@ export const ProjectListScreen = () => {
         client('users').then(setUsers)
     })
     return (
-        <div>
+        <Container>
+            <h1>项目列表</h1>
             <SearchPanel params={params} setParams={setParams} users={users} />
             <List list={list} users={users} />
-        </div>
+        </Container>
     )
 
 
 }
+
+const Container = styled.div`
+    padding: 3.2rem;
+`

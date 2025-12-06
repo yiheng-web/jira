@@ -1,8 +1,8 @@
 import React from 'react'
 import {Users} from './search-panel'
-import { Table } from 'antd'
+import { Table, TableProps } from 'antd'
 import dayjs from 'dayjs'
-interface Project {
+export type Project ={
     id: string,
     name: string,
     personId: string,
@@ -11,14 +11,16 @@ interface Project {
     created: number
 }
 
-interface ListProps {
-    list: Project[],
+interface ListProps extends TableProps<Project> {
     users: Users[],
 }
 
-export const List = ({list,users}: ListProps)=>{
+export const List = ({users,...props}: ListProps)=>{
     return (
-        <Table pagination={false}  columns={[
+        <Table 
+        pagination={false}  
+        rowKey="id"
+        columns={[
         {
             title: '名称',
             dataIndex: 'name',
@@ -40,6 +42,7 @@ export const List = ({list,users}: ListProps)=>{
         },
         {
             title: '创建时间',
+            key: 'created',
             render(value, project){
                 return (
                     <span>
@@ -48,7 +51,8 @@ export const List = ({list,users}: ListProps)=>{
                 )
             }
         }
-    ]} dataSource={list}/>
+    ]} 
+    {...props}/>
         
     )
 }

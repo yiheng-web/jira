@@ -5,17 +5,17 @@ import {Row} from './components/lib';
 import {ReactComponent as SoftwareLogo} from 'assets/software-logo.svg';
 import styled from '@emotion/styled';
 import type { MenuProps } from 'antd';
-import { Dropdown, Space } from 'antd';
+import { Button, Dropdown, Space } from 'antd';
 
 
 export const AuthenticatedApp = () => {
     const { logout, user } = useAuth();
     const items: MenuProps['items'] = [
     {
-        key: 'layout',
+        key: 'logout',
         danger: true,
         label:(
-            <a onClick={logout}>登出</a>
+            <Button type="link" onClick={logout}>登出</Button>
         )
     }
 ]
@@ -29,11 +29,11 @@ export const AuthenticatedApp = () => {
                 </HeaderLeft>
                 <HeaderRight>
                     <Dropdown menu={{items}}>
-                         <a onClick={(e) => e.preventDefault()}>
+                         <Button type={"link"} onClick={(e) => e.preventDefault()}>
                             <Space>
                                 Hi, {user?.name}
                             </Space>
-                        </a>
+                        </Button>
                     </Dropdown>
                 </HeaderRight>
             </Header>

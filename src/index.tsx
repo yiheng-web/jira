@@ -1,8 +1,9 @@
+import "jira-dev-tool";
 import React from "react";
 import ReactDOM from "react-dom"; // 注意这里是 react-dom，不是 react-dom/client
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {loadDevTools} from 'jira-dev-tool'
+import {loadServer,DevTools} from 'jira-dev-tool'
 import {AppProviders} from 'context/index'
 import 'antd/dist/antd.less';
 
@@ -13,10 +14,11 @@ import 'antd/dist/antd.less';
 //   document.getElementById("root")
 // );
 
-loadDevTools(()=>{
+loadServer(()=>{
   ReactDOM.render(
   <React.StrictMode>
     <AppProviders>
+      <DevTools/>
       <App />
     </AppProviders>
   </React.StrictMode>,

@@ -1,5 +1,5 @@
 const CracoLessPlugin = require('craco-less');
-
+const webpack = require('webpack'); // 👈 之前漏了这一行！
 module.exports = {
   plugins: [
     {
@@ -14,4 +14,13 @@ module.exports = {
       },
     },
   ],
+ webpack: {
+    plugins: {
+      add: [
+        new webpack.ProvidePlugin({
+          process: 'process/browser', 
+        }),
+      ],
+    },
+  },
 };

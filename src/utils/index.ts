@@ -1,11 +1,12 @@
 import {useState,useEffect} from 'react'
 
-export const isFalsy = (value:unknown):boolean => {return value === 0 ? false : !value};
-export const cleanObject = (obj:any) => {
-    const result = {...obj}
+export const isFalsy = (value:unknown) => {return value === 0 ? false : !value};
+export const isVoid = (value:unknown)=> value === undefined || value === null || value === '';
+export const cleanObject = (obj:Record<string,unknown>) => {
+    const result:any = {...obj}
     Object.keys(result).forEach((key)=>{
         const value = result[key]
-        if(isFalsy(value)){
+        if(isVoid(value)){
             delete result[key]
         }
     });
@@ -15,6 +16,7 @@ export const cleanObject = (obj:any) => {
 export const useMount = (callback:Function) =>{
     useEffect(() => {
         callback()
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 }
 

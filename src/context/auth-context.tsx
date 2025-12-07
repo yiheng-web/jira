@@ -3,6 +3,8 @@ import * as auth from "auth-provider"
 import { Users } from "screens/project-list/search-panel"
 import { http } from '../utils/http'
 import { useMount } from "utils";
+import { useAsync } from "utils/use-async";
+import { FullPageError, FullPageLoading } from "components/lib";
 
 interface AuthForm {
     username: string,
@@ -28,7 +30,7 @@ const AuthContext = React.createContext<{
 AuthContext.displayName = "AuthContext"
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<Users | null>(null)
+    const {data: user, error, isLoading, isIdle, isError, run, setData: setUser} = useAsync<Users | null>()
 
     //point free
     const login = (form: AuthForm) => {
@@ -40,11 +42,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const logout = () => auth.logout().then(user => setUser(null))
 
     useMount(() => {
-        booststrapUser().then(setUser)
+        run(booststrapUser())
     })
+    if(isIdle || isLoading){
+        return <FullPageLoading/>
+    }
+    if(isError){
+        return <FullPageError error={error}/>
+    }
     return (
         <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
     )
+    
 }
 
 export const useAuth = () => {

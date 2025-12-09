@@ -1,12 +1,11 @@
 import { SearchPanel } from 'screens/project-list/search-panel'
 import { List } from 'screens/project-list/list'
 import { useState } from 'react'
-import { useDebounce } from 'utils'
+import { useDebounce, useDocumentTitle } from 'utils'
 import styled from '@emotion/styled'
 import { Typography } from 'antd'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
-
 
 // import * as qs from "qs"
 
@@ -21,6 +20,7 @@ export const ProjectListScreen = () => {
 
     const { isLoading, error, data: list} = useProjects(debouncedParams)
     const {data: users}:any = useUsers()
+    useDocumentTitle("项目列表",false)
     return (
         <Container>
             <h1>项目列表</h1>

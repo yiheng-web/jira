@@ -5,7 +5,7 @@ import { useAsync } from 'utils/use-async'
 
 
 export const RegisterScreen = ({onError}:{onError: (error: Error )=>void}) => {
-    const { register, user } = useAuth()
+    const { register } = useAuth()
     const {run, isLoading} = useAsync(undefined, {throwOnError: true})
     const handleSubmit = async ({cpassword,...values}: { username: string, password: string, cpassword: string }) => {
         if(values.password !== cpassword){
@@ -20,12 +20,7 @@ export const RegisterScreen = ({onError}:{onError: (error: Error )=>void}) => {
     }
     return (
         <Form onFinish={handleSubmit}>
-            {/* {
-                user ? <div>
-                    登录成功，用户名：{user?.name}
-                    token:{user.token}
-                </div> : null
-            } */}
+            
             <Form.Item name={"username"} rules={[{required:true, message:'请输入用户名'}]}>
                 <Input id={"username"} placeholder='用户名' />
             </Form.Item>

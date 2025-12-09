@@ -1,7 +1,7 @@
 import { useAsync } from './use-async'
 import type {Project} from 'screens/project-list/list'
 import {useEffect} from 'react'
-import { cleanObject, useDebounce } from 'utils'
+import { cleanObject } from 'utils'
 import { useHttp } from 'utils/http'
 
 export const useProjects = (param?: Partial<Project>) => {

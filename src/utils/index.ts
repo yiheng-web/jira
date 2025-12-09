@@ -1,4 +1,5 @@
-import {useState,useEffect} from 'react'
+import { doc } from 'prettier';
+import {useState,useEffect, useRef} from 'react'
 
 export const isFalsy = (value:unknown) => {return value === 0 ? false : !value};
 export const isVoid = (value:unknown)=> value === undefined || value === null || value === '';
@@ -29,4 +30,24 @@ export const useDebounce = <V>(value:V,delay?:number)=>{
         return ()=>{clearTimeout(timeout)}
     },[value,delay])
     return debouncedValue
+}
+
+export const useDocumentTitle = (title:string, keepOnUnmount:boolean = true)=>{
+    const oldTitle = useRef(document.title).current
+    //页面加载时：旧title:jira
+    //加载后：新title
+    useEffect(()=>{
+        document.title = title
+
+    },[title])
+
+    useEffect(()=>{
+     return ()=>{   
+        if(!keepOnUnmount){
+            //如果不指定依赖，读到的就是旧title
+            //指定依赖后，读到的就是新title
+            document.title = oldTitle
+        }
+    }
+    },[keepOnUnmount,oldTitle])
 }

@@ -43,19 +43,19 @@ export const AuthenticatedApp = () => {
         </div>
     )
 }
-const Container = styled.div`
-display: grid;
-grid-template-rows: 6rem 1fr 6rem;
-height: 100vh;
-`
+// const Container = styled.div`
+// display: grid;
+// grid-template-rows: 6rem 1fr 6rem;
+// height: 100vh;
+// `
 
 const Header = styled(Row)`
 padding: 3.2rem;
 box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
 `
-const HeaderItem = styled.h3`
-margin-right: 3rem;
-`
+// const HeaderItem = styled.h3`
+// margin-right: 3rem;
+// `
 const HeaderLeft = styled(Row)`
 
 `

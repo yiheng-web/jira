@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 type FallbackRender = (props: { error: Error | null }) => React.ReactElement
 export default class Errorboundary extends React.Component<React.PropsWithChildren<{ fallbackRender: FallbackRender}>,{error: Error | null}> {
   state = {error: null}
@@ -16,4 +16,4 @@ export default class Errorboundary extends React.Component<React.PropsWithChildr
     }
     return children
   }
-}1
+}

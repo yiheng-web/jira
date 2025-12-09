@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {loadServer,DevTools} from 'jira-dev-tool'
 import {AppProviders} from 'context/index'
+import {HelmetProvider} from 'react-helmet-async'
 import 'antd/dist/antd.less';
 
 // ReactDOM.render(
@@ -17,10 +18,12 @@ import 'antd/dist/antd.less';
 loadServer(()=>{
   ReactDOM.render(
   <React.StrictMode>
+    <HelmetProvider>
     <AppProviders>
       <DevTools/>
       <App />
     </AppProviders>
+    </HelmetProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

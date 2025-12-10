@@ -1,14 +1,35 @@
 import React from 'react';
 import { ProjectListScreen } from 'screens/project-list';
+import { ProjectScreen } from 'screens/project';
 import { useAuth } from 'context/auth-context';
 import {Row} from './components/lib';
 import {ReactComponent as SoftwareLogo} from 'assets/software-logo.svg';
 import styled from '@emotion/styled';
 import type { MenuProps } from 'antd';
 import { Button, Dropdown, Space } from 'antd';
-
+import { Navigate, Route, Routes } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { resetRoute } from 'utils';
 
 export const AuthenticatedApp = () => {
+    
+    return (
+        <div>
+            <PageHeader/>
+            <Main>
+                <Router>
+                    <Routes>
+                        <Route path={'/projects'} element={<ProjectListScreen/>}></Route>
+                        <Route path={'/projects/:projectid/*'} element={<ProjectScreen/>}></Route>
+                        <Route path='/' element={<Navigate to={'/projects'}/>}/>
+                    </Routes>
+                </Router>
+            </Main>
+        </div>
+    )
+}
+
+const PageHeader = () => {
     const { logout, user } = useAuth();
     const items: MenuProps['items'] = [
     {
@@ -19,11 +40,11 @@ export const AuthenticatedApp = () => {
         )
     }
 ]
-    return (
-        <div>
-            <Header between={true}>
+    return <Header between={true}>
                 <HeaderLeft gap = {true}>
-                    <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
+                    <Button type={'link'} onClick={resetRoute}>
+                        <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
+                    </Button>
                     <h2>项目</h2>
                     <h2>用户</h2>
                 </HeaderLeft>
@@ -37,11 +58,6 @@ export const AuthenticatedApp = () => {
                     </Dropdown>
                 </HeaderRight>
             </Header>
-            <Main>
-                <ProjectListScreen />
-            </Main>
-        </div>
-    )
 }
 // const Container = styled.div`
 // display: grid;

@@ -1,4 +1,3 @@
-import { doc } from 'prettier';
 import {useState,useEffect, useRef} from 'react'
 
 export const isFalsy = (value:unknown) => {return value === 0 ? false : !value};

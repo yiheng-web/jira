@@ -1,3 +1,4 @@
+import './wdyd'
 import "jira-dev-tool";
 import React from "react";
 import ReactDOM from "react-dom"; // 注意这里是 react-dom，不是 react-dom/client

@@ -1,20 +1,17 @@
 import { SearchPanel } from 'screens/project-list/search-panel'
 import { List } from 'screens/project-list/list'
-import { useState } from 'react'
 import { useDebounce, useDocumentTitle } from 'utils'
 import styled from '@emotion/styled'
 import { Typography } from 'antd'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
+import { useUrlQueryParam } from 'utils/url'
 
 // import * as qs from "qs"
 
 export const ProjectListScreen = () => {
-    const [params, setParams] = useState({
-        name: "",
-        personId: ""
-    })
-   
+    
+   const [params, setParams] = useUrlQueryParam(['name','personId'])
 
     const debouncedParams = useDebounce(params, 200)
 
@@ -32,6 +29,7 @@ export const ProjectListScreen = () => {
 
 
 }
+
 
 const Container = styled.div`
     padding: 3.2rem;

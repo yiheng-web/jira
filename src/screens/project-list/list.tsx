@@ -1,6 +1,6 @@
 import React from 'react'
 import {Users} from './search-panel'
-import { Table, TableProps } from 'antd'
+import { Dropdown, Table, TableProps, Button, MenuProps } from 'antd'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { Pin } from 'components/pin'
@@ -17,13 +17,22 @@ export type Project ={
 interface ListProps extends TableProps<Project> {
     users: Users[],
     refresh?: ()=>void
+    setProjectModalOpen: (isOpen:boolean)=>void
 }
 
-export const List = ({users,...props}: ListProps)=>{
+export const List = ({users,...props}: ListProps,)=>{
     const {mutate} = useEditProject()
     const pinProject = (id: number) => (pin: boolean) => {
                 mutate({id, pin}).then(props.refresh)
     }
+    const items: MenuProps['items'] = [
+        {
+            key: 'edit',
+            label:(
+                <Button style={{padding:0}} type="link" onClick={() => props.setProjectModalOpen(true)}>编辑</Button>
+            )
+        }
+    ]
     return (
         <Table 
         pagination={false}  
@@ -69,8 +78,16 @@ export const List = ({users,...props}: ListProps)=>{
                     </span>
                 )
             }
+        },
+        {
+            render(value, project){
+                return (
+                <Dropdown menu={{items}}>
+                    <Button style={{padding:0}} type={'link'}>...</Button>
+                </Dropdown>
+            )       
         }
-    ]} 
+        }]}
     {...props}/>
         
     )

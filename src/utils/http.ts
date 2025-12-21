@@ -3,7 +3,7 @@ import * as auth from 'auth-provider'
 import { useAuth } from 'context/auth-context'
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:4000"
 interface config extends RequestInit {
-    data?: string
+    data?: object
     token?: string
 }
 export const http = async (endpoint: string, { data, token, headers, ...customConfig }: config = {}) => {

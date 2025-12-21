@@ -6,16 +6,14 @@ import { Typography } from 'antd'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
 import { useUrlQueryParam } from 'utils/url'
+import { useProjectsSearchParams } from './util'
 
 // import * as qs from "qs"
 
 export const ProjectListScreen = () => {
     
-   const [params, setParams] = useUrlQueryParam(['name','personId'])
-
-    const debouncedParams = useDebounce(params, 200)
-
-    const { isLoading, error, data: list} = useProjects(debouncedParams)
+    const [params, setParams] = useProjectsSearchParams()
+    const { isLoading, error, data: list, retry} = useProjects(useDebounce(params, 200))
     const {data: users}:any = useUsers()
     useDocumentTitle("项目列表",false)
     return (
@@ -23,7 +21,7 @@ export const ProjectListScreen = () => {
             <h1>项目列表</h1>
             <SearchPanel params={params} setParams={setParams} users={users || []} />
             {error? <Typography.Text type={'danger'}>{error.message}</Typography.Text>:null}
-            <List loading={isLoading} dataSource={list || []} users={users || []} />
+            <List refresh={retry} loading={isLoading} dataSource={list || []} users={users || []} />
         </Container>
     )
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useMountedRef } from "utils";
 
 interface State<D>{
@@ -26,18 +26,22 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
 
     const mountedRef = useMountedRef()
 
-    const setData = (data: D) => setState({
+    const setData = useCallback(
+        (data: D) => setState({
         data,
         stat:'success',
         error: null
-    })
-    const setError = (error: Error) => setState({
+    }),[]
+    )
+    const setError = useCallback(
+        (error: Error) => setState({
         error,
         stat: 'error',
         data: null
-    })
+    }),[]
+    )
     //用来触发异步请求
-    const run = (promise: Promise<D>, runConfig?: {retry: ()=> Promise<D>})=>{
+    const run = useCallback((promise: Promise<D>, runConfig?: {retry: ()=> Promise<D>})=>{
         if(!promise || !promise.then){
             throw new Error('请传入 Promise 类型数据')
         }
@@ -47,7 +51,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
             run(runConfig?.retry(),runConfig)
         }
        })
-        setState({...state,stat:'loading'})
+        setState(prevState=>({...prevState,stat:'loading'}))
         return promise
         .then(data=>{
             if(mountedRef.current)
@@ -64,7 +68,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
                 return error
             }
         )
-    }
+    },[config.throwOnError,mountedRef, setData, setError])
    
 
     return {

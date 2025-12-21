@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMountedRef } from "utils";
 
 interface State<D>{
     data: D | null;
@@ -22,6 +23,8 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         ...defaultInitialState,
         ...initialState
     })
+
+    const mountedRef = useMountedRef()
 
     const setData = (data: D) => setState({
         data,
@@ -47,6 +50,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         setState({...state,stat:'loading'})
         return promise
         .then(data=>{
+            if(mountedRef.current)
             setData(data)
             return data
         })

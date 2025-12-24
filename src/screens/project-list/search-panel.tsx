@@ -1,5 +1,4 @@
-import { Input, Select, Form } from "antd";
-import React from "react";
+import { Input, Form } from "antd";
 import { Project } from "./list";
 import { UserSelect } from "components/user-select";
 

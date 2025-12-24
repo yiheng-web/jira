@@ -17,7 +17,7 @@ export type Project ={
 interface ListProps extends TableProps<Project> {
     users: Users[],
     refresh?: ()=>void
-    setProjectModalOpen: (isOpen:boolean)=>void
+    projectButton: React.ReactNode
 }
 
 export const List = ({users,...props}: ListProps,)=>{
@@ -29,7 +29,7 @@ export const List = ({users,...props}: ListProps,)=>{
         {
             key: 'edit',
             label:(
-                <Button style={{padding:0}} type="link" onClick={() => props.setProjectModalOpen(true)}>编辑</Button>
+                props.projectButton
             )
         }
     ]

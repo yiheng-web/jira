@@ -10,7 +10,7 @@ import { useProjectsSearchParams } from './util'
 
 // import * as qs from "qs"
 
-export const ProjectListScreen = (props:{setProjectModalOpen: (isOpen:boolean)=>void}) => {
+export const ProjectListScreen = (props:{projectButton: React.ReactNode}) => {
     
     const [params, setParams] = useProjectsSearchParams()
     const { isLoading, error, data: list, retry} = useProjects(useDebounce(params, 200))
@@ -20,12 +20,12 @@ export const ProjectListScreen = (props:{setProjectModalOpen: (isOpen:boolean)=>
         <Container>
             <Row justify={'space-between'}>
                 <h1>项目列表</h1>
-                <Button onClick={() => props.setProjectModalOpen(true)}>创建项目</Button>
+                {props.projectButton}
             </Row>
             <SearchPanel params={params} setParams={setParams} users={users || []} />
             {error? <Typography.Text type={'danger'}>{error.message}</Typography.Text>:null}
             <List 
-                setProjectModalOpen={props.setProjectModalOpen}
+                projectButton={props.projectButton}
                 refresh={retry} 
                 loading={isLoading} 
                 dataSource={list || []} users={users || []} />

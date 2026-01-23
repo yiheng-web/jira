@@ -17,7 +17,6 @@ export type Project ={
 interface ListProps extends TableProps<Project> {
     users: Users[],
     refresh?: ()=>void
-    projectButton: React.ReactNode
 }
 
 export const List = ({users,...props}: ListProps,)=>{
@@ -29,7 +28,7 @@ export const List = ({users,...props}: ListProps,)=>{
         {
             key: 'edit',
             label:(
-                props.projectButton
+                <Button type="link">编辑</Button>
             )
         }
     ]

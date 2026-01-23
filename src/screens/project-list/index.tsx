@@ -6,12 +6,12 @@ import { Typography, Row, Button } from 'antd'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
 import { useUrlQueryParam } from 'utils/url'
-import { useProjectsSearchParams } from './util'
+import { useProjectModal, useProjectsSearchParams } from './util'
 
 // import * as qs from "qs"
 
-export const ProjectListScreen = (props:{projectButton: React.ReactNode}) => {
-    
+export const ProjectListScreen = () => {
+    const {open} = useProjectModal()
     const [params, setParams] = useProjectsSearchParams()
     const { isLoading, error, data: list, retry} = useProjects(useDebounce(params, 200))
     const {data: users}:any = useUsers()
@@ -20,15 +20,15 @@ export const ProjectListScreen = (props:{projectButton: React.ReactNode}) => {
         <Container>
             <Row justify={'space-between'}>
                 <h1>项目列表</h1>
-                {props.projectButton}
+                <Button onClick={open} type={'link'} style={{padding:0}}>创建项目</Button>
             </Row>
             <SearchPanel params={params} setParams={setParams} users={users || []} />
             {error? <Typography.Text type={'danger'}>{error.message}</Typography.Text>:null}
             <List 
-                projectButton={props.projectButton}
                 refresh={retry} 
                 loading={isLoading} 
-                dataSource={list || []} users={users || []} />
+                dataSource={list || []} 
+                users={users || []} />
         </Container>
     )
 

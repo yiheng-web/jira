@@ -8,4 +8,17 @@ export const useProjectsSearchParams = () => {
             return {...params, personId: Number(params.personId) || undefined}
         },[params])
         , setParams] as const
-} 
+}; 
+
+export const useProjectModal = () => {
+    const [{projectCreate}, setProjectCreate] = useUrlQueryParam(['projectCreate'])
+
+    const open = () => setProjectCreate({projectCreate: true})
+    const close = () => setProjectCreate({projectCreate: ''})
+
+    return {
+        projectModalOpen: projectCreate === 'true',
+        open,
+        close
+    }
+}

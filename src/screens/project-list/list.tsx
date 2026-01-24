@@ -5,6 +5,8 @@ import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { Pin } from 'components/pin'
 import { useEditProject } from 'utils/project'
+import { useProjectModal } from './util'
+import { start } from 'repl'
 export type Project ={
     id: number,
     name: string,
@@ -21,14 +23,22 @@ interface ListProps extends TableProps<Project> {
 
 export const List = ({users,...props}: ListProps,)=>{
     const {mutate} = useEditProject()
+    const {startEdit} = useProjectModal()
     const pinProject = (id: number) => (pin: boolean) => {
-                mutate({id, pin}).then(props.refresh)
+                mutate({id, pin})
     }
+    const editProject = (id: number) => startEdit(id)
+
     const items: MenuProps['items'] = [
         {
             key: 'edit',
             label:(
                 <Button type="link">编辑</Button>
+            )
+        },{
+            key: 'delete',
+            label:(
+                <Button type="link" danger>删除</Button>
             )
         }
     ]
@@ -81,9 +91,15 @@ export const List = ({users,...props}: ListProps,)=>{
         {
             render(value, project){
                 return (
-                <Dropdown menu={{items}}>
+                <Dropdown menu={{items, onClick:({key}) => {
+                    if(key === 'edit'){
+                        editProject(project.id)
+                    }
+                }}} >
+                    <a onClick={(e) => e.preventDefault()}>
                     <Button style={{padding:0}} type={'link'}>...</Button>
-                </Dropdown>
+                    </a>
+                </Dropdown> 
             )       
         }
         }]}

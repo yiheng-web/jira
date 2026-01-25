@@ -11,14 +11,19 @@ export const useProjectsSearchParams = () => {
         , setParams] as const
 }; 
 
+export const useProjectsQueryKey = () => {
+    const [params] = useProjectsSearchParams()
+    return ['projects', params]
+}
+
 export const useProjectModal = () => {
     const [{projectCreate}, setProjectCreate] = useUrlQueryParam(['projectCreate'])
     const [{editingProjectId}, setEditingProjectId] = useUrlQueryParam(['editingProjectId'])
     const {data: editingProject, isLoading} = useProject(Number(editingProjectId))
     const open = () => setProjectCreate({projectCreate: true})
     const close = () => {
-        setProjectCreate({projectCreate: ''});
-        setEditingProjectId({editingProjectId: ''});
+        setProjectCreate({projectCreate: undefined});
+        setEditingProjectId({editingProjectId: undefined});
     }
     const startEdit = (id: number) => setEditingProjectId({editingProjectId: id})
 

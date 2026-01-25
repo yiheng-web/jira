@@ -1,11 +1,11 @@
 import React from 'react'
 import {Users} from './search-panel'
-import { Dropdown, Table, TableProps, Button, MenuProps } from 'antd'
+import { Dropdown, Table, TableProps, Button, MenuProps, Modal } from 'antd'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { Pin } from 'components/pin'
-import { useEditProject } from 'utils/project'
-import { useProjectModal } from './util'
+import { useDeleteProject, useEditProject } from 'utils/project'
+import { useProjectModal, useProjectsQueryKey } from './util'
 import { start } from 'repl'
 export type Project ={
     id: number,
@@ -22,12 +22,23 @@ interface ListProps extends TableProps<Project> {
 }
 
 export const List = ({users,...props}: ListProps,)=>{
-    const {mutate} = useEditProject()
+    const {mutate} = useEditProject(useProjectsQueryKey())
     const {startEdit} = useProjectModal()
     const pinProject = (id: number) => (pin: boolean) => {
                 mutate({id, pin})
     }
     const editProject = (id: number) => startEdit(id)
+    const {mutate: deleteProject} = useDeleteProject(useProjectsQueryKey())
+    const confirmDelete = (id: number) => {
+        Modal.confirm({
+            title: '确定删除该项目吗？',
+            content: '点击确定删除',
+            okText: '确定',
+            onOk() {
+                deleteProject(id)
+            }
+        })
+    }
 
     const items: MenuProps['items'] = [
         {
@@ -94,6 +105,8 @@ export const List = ({users,...props}: ListProps,)=>{
                 <Dropdown menu={{items, onClick:({key}) => {
                     if(key === 'edit'){
                         editProject(project.id)
+                    }else if(key === 'delete'){
+                        confirmDelete(project.id)
                     }
                 }}} >
                     <a onClick={(e) => e.preventDefault()}>

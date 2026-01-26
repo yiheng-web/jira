@@ -1,8 +1,6 @@
-
-import type {Project} from 'screens/project-list/list'
+import type { Project } from "types/project"
 import { useHttp } from 'utils/http'
-import { Query, QueryKey, useMutation, useQuery, useQueryClient } from 'react-query'
-import { useProjectsSearchParams } from 'screens/project-list/util'
+import { QueryKey, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAddConfig, useDeleteConfig, useEditConfig } from './use-optimistic-options'
 
 export const useProjects = (param?: Partial<Project>) => {

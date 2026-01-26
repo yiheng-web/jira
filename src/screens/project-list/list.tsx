@@ -1,20 +1,11 @@
-import React from 'react'
-import {Users} from './search-panel'
+import { Users } from "types/user"
 import { Dropdown, Table, TableProps, Button, MenuProps, Modal } from 'antd'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { Pin } from 'components/pin'
 import { useDeleteProject, useEditProject } from 'utils/project'
 import { useProjectModal, useProjectsQueryKey } from './util'
-import { start } from 'repl'
-export type Project ={
-    id: number,
-    name: string,
-    personId: number,
-    pin: boolean,
-    organization: string,
-    created: number
-}
+import { Project } from "types/project"
 
 interface ListProps extends TableProps<Project> {
     users: Users[],

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { ProjectListScreen } from 'screens/project-list';
 import { ProjectScreen } from 'screens/project';
 import { useAuth } from 'context/auth-context';

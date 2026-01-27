@@ -10,7 +10,7 @@ import { useDocumentTitle } from 'utils'
 import { ErrorBox } from 'components/lib'
 
 
-export default () => {
+export default function UnauthenticatedApp() {
     const [isRegister, setRegister] = useState(false)
     const [error, setError] = useState<Error | null>(null)
     useDocumentTitle('请登录或注册以继续使用')  

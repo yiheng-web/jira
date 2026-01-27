@@ -8,6 +8,7 @@ import {loadServer,DevTools} from 'jira-dev-tool'
 import {AppProviders} from 'context/index'
 import {HelmetProvider} from 'react-helmet-async'
 import 'antd/dist/antd.less';
+import { Profiler } from "components/profiler";
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -19,12 +20,14 @@ import 'antd/dist/antd.less';
 loadServer(()=>{
   ReactDOM.render(
   <React.StrictMode>
-    <HelmetProvider>
-    <AppProviders>
-      <DevTools/>
-      <App />
-    </AppProviders>
-    </HelmetProvider>
+    <Profiler id={'Root App'} phases={['mount']}>
+      <HelmetProvider>
+        <AppProviders>
+          <DevTools/>
+          <App />
+        </AppProviders>
+      </HelmetProvider>
+    </Profiler>
   </React.StrictMode>,
   document.getElementById("root")
 );

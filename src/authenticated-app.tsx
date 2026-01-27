@@ -13,7 +13,7 @@ import { resetRoute } from 'utils';
 import { ProjectModal } from 'screens/project-list/project-modal';
 import { ProjectPopover } from 'components/project-popover';
 
-export const AuthenticatedApp = () => {
+export default () => {
     return (
       
             <Container>

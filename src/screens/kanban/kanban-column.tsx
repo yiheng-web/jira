@@ -1,3 +1,4 @@
+import React from "react";
 import { Kanban } from "types/kanban";
 import { useTasks } from "utils/task";
 import { useKanbansQueryKey, useTasksModal, useTasksSearchParams } from "./util";
@@ -12,6 +13,7 @@ import type { MenuProps } from 'antd';
 import { Task } from "types/task";
 import { Row } from "components/lib";
 import { useDeleteKanban } from "utils/kanban";
+import { Drag, Drop, DropChild } from "components/drag-and-drop";
 
 const TaskTypeIcon = ({id}: {id: number}) => {
     const {data: taskTypes} = useTaskTypes()
@@ -33,23 +35,33 @@ const TaskCard = ({task}: {task: Task}) => {
             </Card>
 }
 
-export const KanbanColumn = ({kanban}: {kanban: Kanban}) => {
+export const KanbanColumn = React.forwardRef<HTMLDivElement, {kanban: Kanban}>(({kanban, ...props}, ref) => {
     const {data: allTasks} = useTasks(useTasksSearchParams())
     const tasks = allTasks?.filter(task => task.kanbanId === kanban.id)
     
-    return <Container>
+    return <Container ref={ref} {...props}>
         <Row between={true}>
              <h3>{kanban.name}</h3>
-            <More kanban={kanban}/>
+            <More kanban={kanban} key={kanban.id}/>
         </Row>   
         <TasksContainer>
-        {
-            tasks?.map(task => <TaskCard key={task.id} task={task} />)
-        }
+            <Drop type={'Row'} direction={"vertical"} droppableId={String(kanban.id)}>
+                <DropChild style={{minHeight:'5px'}}>
+                    {
+                        tasks?.map((task, taskIndex) => (
+                            <Drag key={task.id} draggableId={"task" + task.id} index={taskIndex}>
+                               <div>
+                                 <TaskCard key={task.id} task={task}/>
+                               </div>
+                            </Drag>
+                        ))
+                    }
+                </DropChild>
+            </Drop>
         <CreateTask kanbanId={kanban.id}/>
         </TasksContainer>
         </Container>
-}
+})
 
 const More = ({kanban}: {kanban: Kanban}) => {
     const {mutateAsync} = useDeleteKanban(useKanbansQueryKey())

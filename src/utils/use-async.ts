@@ -17,7 +17,7 @@ const defaultConfig = {
     throwOnError: false
 }
 export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defaultConfig)=>{
-    const config = {...defaultConfig,initialConfig}
+    const config = {...defaultConfig,...initialConfig}
     const [retry, setRetry] = useState(()=>()=>{})
     const [state,setState] = useState<State<D>>({
         ...defaultInitialState,

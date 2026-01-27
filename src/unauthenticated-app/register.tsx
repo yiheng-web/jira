@@ -1,5 +1,5 @@
 import { useAuth } from 'context/auth-context'
-import {Form, Input} from 'antd'
+import {Form, Input, message} from 'antd'
 import { LongButton } from 'unauthenticated-app'
 import { useAsync } from 'utils/use-async'
 
@@ -14,6 +14,7 @@ export const RegisterScreen = ({onError}:{onError: (error: Error )=>void}) => {
         }
         try{
             await run(register(values))
+            message.success('注册成功')
         }catch(error:any){
             onError(error)
         }

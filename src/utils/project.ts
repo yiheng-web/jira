@@ -2,10 +2,11 @@ import type { Project } from "types/project"
 import { useHttp } from 'utils/http'
 import { QueryKey, useMutation, useQuery, useQueryClient } from 'react-query'
 import { useAddConfig, useDeleteConfig, useEditConfig } from './use-optimistic-options'
+import { cleanObject } from "utils"
 
 export const useProjects = (param?: Partial<Project>) => {
     const client = useHttp()
-    return useQuery<Project[]>(['projects', param],()=>client('projects',{data: param}))
+    return useQuery<Project[]>(['projects', cleanObject(param)],()=>client('projects',{data: param}))
    
 }
 

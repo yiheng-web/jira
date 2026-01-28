@@ -1,6 +1,5 @@
 {
   "name": "jira",
-  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -69,6 +68,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/minimatch": "^3.0.5",
     "@types/qs": "^6.14.0",
     "@types/react": "^16.9.56",
@@ -80,6 +80,7 @@
     "gh-pages": "^6.3.0",
     "imooc-jira-tool": "^1.0.4",
     "lint-staged": "^16.2.6",
+    "msw": "^2.12.7",
     "prettier": "3.6.2",
     "typescript": "4.5.5"
   }

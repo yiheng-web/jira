@@ -6,7 +6,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {loadServer,DevTools} from 'jira-dev-tool'
 import {AppProviders} from 'context/index'
-import {HelmetProvider} from 'react-helmet-async'
 import 'antd/dist/antd.less';
 import { Profiler } from "components/profiler";
 
@@ -16,17 +15,18 @@ import { Profiler } from "components/profiler";
 //   </React.StrictMode>,
 //   document.getElementById("root")
 // );
+// const swUrl = process.env.NODE_ENV === 'production' 
+//   ? '/yiheng.github.io/mockServiceWorker.js' 
+//   : '/mockServiceWorker.js';
 
 loadServer(()=>{
   ReactDOM.render(
   <React.StrictMode>
-    <Profiler id={'Root App'} phases={['mount']}>
-      <HelmetProvider>
+    <Profiler id={'Root App'} phases={['mount']}>     
         <AppProviders>
           <DevTools/>
           <App />
-        </AppProviders>
-      </HelmetProvider>
+        </AppProviders>     
     </Profiler>
   </React.StrictMode>,
   document.getElementById("root")

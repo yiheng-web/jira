@@ -1,3 +1,4 @@
+import React from 'react';
 import { Rate } from "antd";
 
 interface PinProps extends React.ComponentProps<typeof Rate> {

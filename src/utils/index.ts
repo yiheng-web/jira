@@ -2,7 +2,8 @@ import {useState,useEffect, useRef} from 'react'
 
 export const isFalsy = (value:unknown) => {return value === 0 ? false : !value};
 export const isVoid = (value:unknown)=> value === undefined || value === null || value === '';
-export const cleanObject = (obj:Record<string,unknown>) => {
+export const cleanObject = (obj?:Record<string,unknown>) => {
+    if(!obj){return {}}
     const result:any = {...obj}
     Object.keys(result).forEach((key)=>{
         const value = result[key]

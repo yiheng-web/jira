@@ -1,8 +1,8 @@
+import React from 'react';
 import styled from "@emotion/styled";
 import { Drawer, DrawerProps, Spin, Form, Input, Button } from "antd";
 import { useAddEpic } from "utils/epic";
 import { useEpicsQueryKey } from "./util";
-import { useForm } from "antd/lib/form/Form";
 import { ErrorBox } from "components/lib";
 import { useEffect } from "react";
 import { useProjectIdInUrl } from "screens/kanban/util";
@@ -10,7 +10,7 @@ import { useProjectIdInUrl } from "screens/kanban/util";
 
 export const CreateEpic = (props: Pick<DrawerProps, "open"> & {onClose: () => void}) => {
     const {mutate: addEpic, isLoading, error} = useAddEpic(useEpicsQueryKey())
-    const [form] = useForm()
+    const [form] = Form.useForm()
     const projectId = useProjectIdInUrl()
     const onFinish = async (values: any) => {
         await addEpic({...values, projectId})       

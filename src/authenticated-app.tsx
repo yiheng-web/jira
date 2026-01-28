@@ -1,3 +1,4 @@
+import React from 'react';
 import { ProjectListScreen } from 'screens/project-list';
 import { ProjectScreen } from 'screens/project';
 import { useAuth } from 'context/auth-context';
@@ -16,18 +17,16 @@ import { UserPopover } from 'components/user-popover';
 export default function AuthenticatedApp() {
     return (
       
-            <Container>
-                <Router>
-                    <PageHeader />
-                    <Main>                  
-                        <Routes>
-                            <Route path={'/projects'} element={<ProjectListScreen/>}/>
-                            <Route path={'/projects/:projectid/*'} element={<ProjectScreen/>}/>
-                            <Route path='/' element={<Navigate to={'/projects'}/>}/>
-                        </Routes>                  
-                    </Main>
-                    <ProjectModal/>
-                </Router>
+            <Container>              
+                <PageHeader />
+                <Main>                  
+                    <Routes>
+                        <Route path={'/projects'} element={<ProjectListScreen/>}/>
+                        <Route path={'/projects/:projectid/*'} element={<ProjectScreen/>}/>
+                        <Route path='/' element={<Navigate to={'/projects'}/>}/>
+                    </Routes>                  
+                </Main>
+                <ProjectModal/>      
             </Container>
        
     )

@@ -1,3 +1,4 @@
+import React from "react"
 import { Select } from "antd"
 type SelectProps = React.ComponentProps<typeof Select>
 interface IdSelectProps extends Omit<SelectProps,'onChange'|'value'>{

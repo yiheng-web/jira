@@ -1,9 +1,9 @@
-import { useQuery } from "react-query"
-import { useHttp } from "./http"
-import { TaskType } from "types/task-type"
+import { useQuery } from "react-query";
+import { useHttp } from "./http";
+import { TaskType } from "types/task-type";
 
 export const useTaskTypes = () => {
-    const client = useHttp()
+  const client = useHttp();
 
-    return useQuery<TaskType[]>(['taskTypes'], () => client('taskTypes'))
-}
+  return useQuery<TaskType[]>(["taskTypes"], () => client("taskTypes"));
+};

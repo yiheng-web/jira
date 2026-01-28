@@ -1,9 +1,20 @@
 {
-    
+  // 1. 指定 TS SDK 路径（你原有的保留）
   "typescript.tsdk": "node_modules/typescript/lib",
+
+  // 2. 开启全局保存自动格式化（不要放在 [jsonc] 里面）
+  "editor.formatOnSave": true,
+
+  // 3. 明确指定 Prettier 为默认格式化工具
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // 4. (可选但强烈建议) 保存时自动修复 ESLint 错误
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // 5. 如果你希望针对特定文件单独配置，可以保留这个，但它不是必须的
   "[jsonc]": {
-  "editor.formatOnSave": false
-}
-
-
+    "editor.formatOnSave": true
+  }
 }

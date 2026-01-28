@@ -18,7 +18,7 @@ const server = setupServer(
   // 2. 将 rest.get 替换为 http.get，并使用 HttpResponse.json
   http.get(`${apiUrl}/me`, () => HttpResponse.json(fakeAuth)),
   http.get(`${apiUrl}/users`, () => HttpResponse.json(fakeData.users)),
-  
+
   // 3. 处理带查询参数的接口
   http.get(`${apiUrl}/projects`, ({ request }) => {
     const url = new URL(request.url);
@@ -32,7 +32,7 @@ const server = setupServer(
       );
     });
     return HttpResponse.json(result);
-  })
+  }),
 );
 
 beforeAll(() => server.listen());

@@ -1,36 +1,41 @@
-import React,{ useEffect, useState } from "react"
-import { useProjectIdInUrl, useTasksQueryKey } from "./util"
-import { useAddTask } from "utils/task"
-import { Card, Input } from "antd"
+import React, { useEffect, useState } from "react";
+import { useProjectIdInUrl, useTasksQueryKey } from "./util";
+import { useAddTask } from "utils/task";
+import { Card, Input } from "antd";
 
-export const CreateTask = ({kanbanId}: {kanbanId: number}) => {
-    const [name, setName] = useState('')
-    const {mutateAsync: addTask} = useAddTask(useTasksQueryKey())
-    const projectId = useProjectIdInUrl()
-    const [inputMode, setInputMode] = useState(false)
-    const submit = async () => {
-        await addTask({projectId,name, kanbanId})
-        setInputMode(false)
-        setName('')
+export const CreateTask = ({ kanbanId }: { kanbanId: number }) => {
+  const [name, setName] = useState("");
+  const { mutateAsync: addTask } = useAddTask(useTasksQueryKey());
+  const projectId = useProjectIdInUrl();
+  const [inputMode, setInputMode] = useState(false);
+  const submit = async () => {
+    await addTask({ projectId, name, kanbanId });
+    setInputMode(false);
+    setName("");
+  };
+
+  const toggle = () => setInputMode((mode) => !mode);
+
+  useEffect(() => {
+    if (!inputMode) {
+      setName("");
     }
+  }, [inputMode]);
 
-    const toggle = () => setInputMode(mode => !mode)
+  if (!inputMode) {
+    return <div onClick={toggle}>+ 创建任务</div>;
+  }
 
-    useEffect(() => {
-        if(!inputMode){
-            setName('')
-        }
-    }, [inputMode])
-
-    if(!inputMode){
-        return <div onClick={toggle}>+ 创建任务</div>
-    }
-
-    return <Card>
-        <Input onBlur={toggle} 
-            placeholder="需要做些什么" 
-            autoFocus={true} 
-            onPressEnter={submit} value={name} 
-            onChange={e => setName(e.target.value)}/>
+  return (
+    <Card>
+      <Input
+        onBlur={toggle}
+        placeholder="需要做些什么"
+        autoFocus={true}
+        onPressEnter={submit}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
     </Card>
-}
+  );
+};

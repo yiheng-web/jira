@@ -19,7 +19,7 @@ test("http方法发送异步请求", async () => {
   server.use(
     msw.http.get(`${apiUrl}/${endpoint}`, () => {
       return msw.HttpResponse.json(mockResult);
-    })
+    }),
   );
 
   const result = await request(endpoint);
@@ -35,14 +35,19 @@ test("http请求时会在header里带上token", async () => {
 
   server.use(
     // 手动指定类型为 Request 解决 any 报错
-    msw.http.get(`${apiUrl}/${endpoint}`, ({ request }: { request: Request }) => {
-      interceptedRequest = request;
-      return msw.HttpResponse.json(mockResult);
-    })
+    msw.http.get(
+      `${apiUrl}/${endpoint}`,
+      ({ request }: { request: Request }) => {
+        interceptedRequest = request;
+        return msw.HttpResponse.json(mockResult);
+      },
+    ),
   );
 
   await request(endpoint, { token });
-  
+
   // 原生 Request 对象的 headers 获取
-  expect(interceptedRequest?.headers.get("Authorization")).toBe(`Bearer ${token}`);
+  expect(interceptedRequest?.headers.get("Authorization")).toBe(
+    `Bearer ${token}`,
+  );
 });
